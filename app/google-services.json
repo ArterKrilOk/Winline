@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "729207624627",
+    "project_id": "kravi1ne",
+    "storage_bucket": "kravi1ne.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729207624627:android:3e07f14eab9d9c4cecf1c6",
+        "android_client_info": {
+          "package_name": "dallaz.winline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "729207624627-g89sfqd2l755khad5p5afjkr27bkhm47.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ-2f1ET1RQj1Cp9ufbZrpx6aM-GYAQGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "729207624627-g89sfqd2l755khad5p5afjkr27bkhm47.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.workouts.WorkoutsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <LinearLayout
+            android:id="@+id/create_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteTextView"
+                android:background="@drawable/panel"
+                android:padding="24dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:hint="@string/workout" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/create_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cornerRadius="@dimen/app_radius"
+                android:padding="@dimen/app_radius"
+                android:text="@string/create"
+                android:layout_marginStart="6dp"
+                app:icon="@drawable/round_add_24"
+                app:iconGravity="textStart"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/timer_view"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:gravity="center"
+            android:textSize="48sp"
+            android:textStyle="bold"
+            tools:text="00m\n13s\n20ms" />
+
+        <LinearLayout
+            android:id="@+id/workout_controls_lay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/remove_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                android:backgroundTint="?attr/colorSurfaceVariant"
+                android:padding="@dimen/app_radius"
+                android:text="@string/remove"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                app:cornerRadius="@dimen/app_radius"
+                app:icon="@drawable/round_delete_24"
+                app:iconGravity="textStart"
+                app:iconTint="?attr/colorOnSurfaceVariant" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/finish_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:padding="@dimen/app_radius"
+                android:text="@string/finish"
+                app:cornerRadius="@dimen/app_radius"
+                app:icon="@drawable/round_stop_24"
+                app:iconGravity="textStart" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="12dp"
+            android:text="@string/workouts"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="4"
+            tools:listitem="@layout/workout_item" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
