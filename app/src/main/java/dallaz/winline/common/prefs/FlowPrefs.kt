@@ -13,14 +13,17 @@ open class FlowPrefs(protected val prefs: SharedPreferences) {
         propertyName: String,
         getProperty: (SharedPreferences, String) -> T
     ): Flow<T> = flows.getOrPut(propertyName) {
+        var isComplete = false
         callbackFlow {
             val callback =
                 SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, name ->
-                    runBlocking { send(getProperty(sharedPreferences, name)) }
+                    if (!isComplete)
+                        runBlocking { send(getProperty(sharedPreferences, name)) }
                 }
             prefs.registerOnSharedPreferenceChangeListener(callback)
             send(getProperty(prefs, propertyName))
             awaitClose {
+                isComplete = true
                 prefs.unregisterOnSharedPreferenceChangeListener(callback)
                 flows.remove(propertyName)
             }

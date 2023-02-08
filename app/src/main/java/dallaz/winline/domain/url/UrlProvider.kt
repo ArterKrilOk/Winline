@@ -10,10 +10,7 @@ import dallaz.winline.domain.exceptions.FRCErrorOccurredException
 import dallaz.winline.domain.exceptions.FRCTaskFailedException
 import dallaz.winline.domain.exceptions.NoInternetConnectionException
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -37,15 +34,21 @@ class UrlProvider @Inject constructor(
      * @throws FRCErrorOccurredException
      * @throws FRCTaskFailedException
      */
-    val singleUrlFlow = connectivityProvider.status.take(1).flatMapConcat {
+    val urlFlow = connectivityProvider.status.flatMapLatest {
         if (it is ConnectionStatus.Disconnected) throw NoInternetConnectionException()
-        else appPrefs.urlFlow.take(1).map { savedUrl ->
+        else appPrefs.urlFlow.map { savedUrl ->
             savedUrl.ifEmpty {
-                val remoteUrl = getFRCStringSuspend(FRC_URL_PARAM_NAME)
-                appPrefs.url = remoteUrl
+                var remoteUrl = savedUrl
+                try {
+                    remoteUrl = getFRCStringSuspend(FRC_URL_PARAM_NAME)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
                 remoteUrl
             }
         }
+    }.onEach {
+        if (appPrefs.url != it) appPrefs.url = it
     }.flowOn(Dispatchers.IO)
 
 

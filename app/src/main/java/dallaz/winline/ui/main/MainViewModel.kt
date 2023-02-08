@@ -15,7 +15,7 @@ class MainViewModel(private val app: App, vararg args: Any) : CommonViewModel(ap
 
     val loading = MutableStateFlow(true)
 
-    val singleUrl = appComponent.urlProvider.singleUrlFlow.onStart {
+    val singleUrl = appComponent.urlProvider.urlFlow.take(1).onStart {
         loading.emit(true)
     }.map {
         if (checkIsEmu() || !isSimAvailable()) ""
